@@ -32,7 +32,7 @@ app.use('/home/csvdata', csvDataRoutes);
 
 
 app.get('/',(req,res) => {
-        res.send('Welcome to CSV TASK1 API');
+        res.send('Welcome to CSV TASK1 API, Please Check the Github Readme for the Routes and how to use the api, Github Link:- https://github.com/PnCodeBreaker/CSVCRUDTASK1');
 })
 /* only this route is unauthenticated , all the other routes have auth middleware, 
 sign in/sign up to generate one */

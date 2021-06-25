@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "109f0fa8-b27b-4418-9a41-3fd92d0402f0",
+		"name": "CSVCRUDUSINGMONGODB(TASK1)LOCALHOST(For LocalMachine )",
+		"description": "These is the collection of all the backend api request of CSVCRUDUSINGMONGODB(Task1) (For LocalMachine)\r\ncreated by Prithwish Nandi (https://github.com/PnCodeBreaker/CSVCRUDTASK1).\r\nUse This Collection only if the backend api to be run in localmachine otherwise a heroku api link will also be present(on the same github folder).\r\nFor more information on how to use and run please visit the github link above.\r\n\r\nRoutes :- ( Either Use localhost:5000/ or https://csvcrudtask.herokuapp.com/)\r\nThis Collection is Created using localhost:5000/ that is on the local machine, \r\nAnother Collection is created using https://csvcrudtask.herokuapp.com/   (which is in the same github folder).\r\n\r\n<b> Note:- :id params needed to be changed manually for testing the api in PostMan. </b>\r\n\r\n('/') (GET) - Only Route that is not authenticated and it just displays the api is running.\r\n\r\n('/user/signup') - for signup, authenticaion and generating jwt token for the protected routes auth middleware.\r\n\r\n('/user/signin') - for signin in the user, authenticaion and generating jwt token for the protected routes auth.\r\n\r\n('/user/signout') - for signout ( only possible in cookie based, not possible if bearer token auth is used).\r\n\r\n('/home')  (GET) (protected route) -  for fetching the CSVFILE MetaData ( not actual contents inside CSV file). but filename, userId etc and it fetches all the CSVFIles uploaded by the current authorized user.  \r\n\r\n('/home') (POST) (protected route) - it posts the csv file and its contents and pushes to mongodb.\r\n\r\n('/home/update/:id') (PATCH) (protected route) - This  will update the CSV file meta Data \r\n ( not actual contents inside csv ) of a given ID created by the current authenticated user.\r\n\r\n('/home/delete/:id) (DELETE) (protected route) - This will delete the CSV \r\n file meta Data provided its id in params and all contents in CSV as well\r\n\r\n ('/home/csvdata/:csvId') (GET) (protected route) - This will fetch all the CSV Contents/Data inside \r\nthe provided CSVFile whose ID is provided in params\r\n\r\n ('/home/csvdata/:csvId') (POST) (protected route) -This will create a new CSV Content/Data inside \r\nthe provided CSVFile whose ID is provided in params\r\n\r\n ('/home/csvdata/update/:csvContentId') (PATCH) (protected route) - This will update a CSV Content/Data inside \r\nthe provided CSVFile whose ID is provided in params\r\n\r\n ('/home/csvdata/delete/:csvContentId') (DELETE) (protected route) - This will delete a CSV Content/Data inside \r\nthe provided CSVFile whose ID is provided in params\r\n\r\nFor Local Machine Usage:-\r\ngit clone https://github.com/PnCodeBreaker/CSVCRUDTASK1\r\ncd backend_api\r\nnpm i \r\nTwo Environmental Variables are used :- \r\nCONNECTION_URL = (for mongodb connection)\r\nSECRET = ( use any string for JWT Secret Token ).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check_Backend_API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				},
+				"description": "Only Route that is not authenticated and it just displays the api is running.\r\n('/') (GET)"
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"signup"
+					]
+				},
+				"description": "('/user/signup') (POST) - for signup, authenticaion and generating jwt token for the protected routes auth middleware."
+			},
+			"response": []
+		},
+		{
+			"name": "SignOut",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/signout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"signout"
+					]
+				},
+				"description": "('/user/signout') (GET)- for signout ( only possible in cookie based, not possible if bearer token auth is used)."
+			},
+			"response": []
+		},
+		{
+			"name": "SignIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/user/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"signin"
+					]
+				},
+				"description": "('/user/signin') - for signin in the user, authenticaion and generating jwt token for the protected routes auth."
+			},
+			"response": []
+		},
+		{
+			"name": "CSVFILEUpload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "filename",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "createrName",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "csvFile",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/home/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						""
+					]
+				},
+				"description": "('/home') (POST) (protected route) - it posts the csv file and its contents and pushes to mongodb."
+			},
+			"response": []
+		},
+		{
+			"name": "ALLCSVFILECreatedByCurrentUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/home/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						""
+					]
+				},
+				"description": "('/home') (GET) (protected route) - for fetching the CSVFILE MetaData ( not actual contents inside CSV file). but filename, userId etc and it fetches all the CSVFIles uploaded by the current authorized user."
+			},
+			"response": []
+		},
+		{
+			"name": "CSVFILEMETADATAUPDATE",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "filename",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/home/update/id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"update",
+						"id"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "('/home/update/:id') (PATCH) (protected route) - This will update the CSV file meta Data ( not actual contents inside csv ) of a given ID created by the current authenticated user."
+			},
+			"response": []
+		},
+		{
+			"name": "FetchCSVFileDataContentById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/home/csvdata/id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"csvdata",
+						"id"
+					]
+				},
+				"description": "('/home/csvdata/:csvId') (GET) (protected route) - This will fetch all the CSV Contents/Data inside the provided CSVFile whose ID is provided in params"
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCSVDATACONTENT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "State_UT",
+							"value": "New State",
+							"type": "text"
+						},
+						{
+							"key": "TotalCases",
+							"value": "20000",
+							"type": "text"
+						},
+						{
+							"key": "ActiveCases",
+							"value": "3000",
+							"type": "text"
+						},
+						{
+							"key": "Discharged",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "Deaths",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "ActiveRatio",
+							"value": "2.5",
+							"type": "text"
+						},
+						{
+							"key": "DischargeRatio",
+							"value": "96",
+							"type": "text"
+						},
+						{
+							"key": "DeathRatio",
+							"value": "1.5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/home/csvdata/id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"csvdata",
+						"id"
+					]
+				},
+				"description": "('/home/csvdata/:csvId') (POST) (protected route) -This will create a new CSV Content/Data inside the provided CSVFile whose ID is provided in params"
+			},
+			"response": []
+		},
+		{
+			"name": "updateCSVDATACONTENT",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "State_UT",
+							"value": "New State Updated",
+							"type": "text"
+						},
+						{
+							"key": "TotalCases",
+							"value": "21000",
+							"type": "text"
+						},
+						{
+							"key": "ActiveCases",
+							"value": "3100",
+							"type": "text"
+						},
+						{
+							"key": "Discharged",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "Deaths",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "ActiveRatio",
+							"value": "2.5",
+							"type": "text"
+						},
+						{
+							"key": "DischargeRatio",
+							"value": "96",
+							"type": "text"
+						},
+						{
+							"key": "DeathRatio",
+							"value": "1.5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/home/csvdata/update/id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"csvdata",
+						"update",
+						"id"
+					]
+				},
+				"description": "('/home/csvdata/update/:csvContentId') (PATCH) (protected route) - This will update a CSV Content/Data inside the provided CSVFile whose ID is provided in params"
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveCSVFileDataContent",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/home/csvdata/delete/id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"csvdata",
+						"delete",
+						"id"
+					]
+				},
+				"description": "('/home/csvdata/delete/:csvContentId') (DELETE) (protected route) - This will delete a CSV Content/Data inside the provided CSVFile whose ID is provided in params"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteEntireCSVFileAndItsContents",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/home/delete/id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"delete",
+						"id"
+					]
+				},
+				"description": "('/home/delete/:id) (DELETE) (protected route) - This will delete the CSV file meta Data provided its id in params and all contents in CSV as well"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
